@@ -140,7 +140,10 @@ public partial class InstallController : Controller
             DisableSampleDataOption = _appSettings.Get<InstallationConfig>().DisableSampleData,
             CreateDatabaseIfNotExists = true,
             ConnectionStringRaw = false,
-            DataProvider = DataProviderType.SqlServer
+            DataProvider = DataProviderType.MySql,
+            ServerName = "localhost",
+            DatabaseName = "choisy",
+            Username = "root"
         };
 
         PrepareAvailableDataProviders(model);

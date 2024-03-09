@@ -30,7 +30,7 @@ public partial class InstallValidator : BaseNopValidator<InstallModel>
             When(x => !x.IntegratedSecurity, () =>
             {
                 RuleFor(x => x.Username).NotEmpty().WithMessage(locService.GetResource("SqlUsernameRequired"));
-                RuleFor(x => x.Password).NotEmpty().WithMessage(locService.GetResource("SqlPasswordRequired"));
+                //RuleFor(x => x.Password).NotEmpty().WithMessage(locService.GetResource("SqlPasswordRequired"));
             });
         });
 
