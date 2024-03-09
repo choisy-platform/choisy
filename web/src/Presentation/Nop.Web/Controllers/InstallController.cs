@@ -132,11 +132,13 @@ public partial class InstallController : Controller
         var model = new InstallModel
         {
             AdminEmail = "admin@yourStore.com",
-            InstallSampleData = false,
-            SubscribeNewsletters = true,
+            AdminPassword = "password",
+            ConfirmPassword = "password",
+            InstallSampleData = true,
+            SubscribeNewsletters = false,
             InstallRegionalResources = _appSettings.Get<InstallationConfig>().InstallRegionalResources,
             DisableSampleDataOption = _appSettings.Get<InstallationConfig>().DisableSampleData,
-            CreateDatabaseIfNotExists = false,
+            CreateDatabaseIfNotExists = true,
             ConnectionStringRaw = false,
             DataProvider = DataProviderType.SqlServer
         };

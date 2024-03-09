@@ -299,11 +299,11 @@ namespace Nop.Services.Installation
             var stores = new List<Store>
             {
                 new() {
-                    Name = "Your store name",
-                    DefaultTitle = "Your store",
+                    Name = "Choisy",
+                    DefaultTitle = "Choisy",
                     DefaultMetaKeywords = string.Empty,
                     DefaultMetaDescription = string.Empty,
-                    HomepageTitle = "Home page title",
+                    HomepageTitle = "Choisy",
                     HomepageDescription = "Home page description",
                     Url = storeUrl,
                     SslEnabled = _webHelper.IsCurrentConnectionSecured(),
@@ -3014,11 +3014,11 @@ namespace Nop.Services.Installation
                 DefaultStoreTheme = "DefaultClean",
                 AllowCustomerToSelectTheme = false,
                 DisplayEuCookieLawWarning = isEurope,
-                FacebookLink = "https://www.facebook.com/nopCommerce",
-                TwitterLink = "https://twitter.com/nopCommerce",
-                YoutubeLink = "https://www.youtube.com/user/nopCommerce",
-                InstagramLink = "https://www.instagram.com/nopcommerce_official",
-                HidePoweredByNopCommerce = false
+                FacebookLink = "",
+                TwitterLink = "",
+                YoutubeLink = "",
+                InstagramLink = "",
+                HidePoweredByNopCommerce = true
             });
 
             await settingService.SaveSettingAsync(new ExternalAuthenticationSettings
