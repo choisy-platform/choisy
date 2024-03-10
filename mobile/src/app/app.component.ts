@@ -285,7 +285,8 @@ export class AppComponent {
         isRtl: false,
       });
     }
-
+    
+    
     const url = this.router.routerState.snapshot.url;
     const ignoreRoutes = ['privacy', 'feedback'];
     const exists = ignoreRoutes.filter((r) => url.includes(r));

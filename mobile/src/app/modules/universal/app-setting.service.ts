@@ -38,6 +38,29 @@ export class AppSettingService {
     this.pubsubSvc = injector.get(NgxPubSubService);
   }
 
+  putAppTourSkipped(value = true) {
+    return this.dbService
+      .putLocal(this.schemaSvc.tables.setting, {
+        key: AppConstant.KEY_APP_TOUR,
+        value: value == true ? 'attended' : 'notAttended',
+      })
+      .then(() => {
+        AppSettingService.settingCache.set(
+          AppConstant.KEY_APP_TOUR,
+          value
+        );
+      });
+  }
+
+  getAppTourSkipped() {
+    return this.get(AppConstant.KEY_APP_TOUR).then((value) => {
+      if (typeof value === 'undefined' || value === null) {
+        return value;
+      }
+      return value == 'attended' || value == true;
+    });
+  }
+
   putWorkingLanguage(lang) {
     return this.dbService
       .putLocal(this.schemaSvc.tables.setting, {
@@ -54,6 +77,10 @@ export class AppSettingService {
 
   getWorkingLanguage() {
     return this.get<string>(AppConstant.KEY_WORKING_LANGUAGE);
+  }
+
+  isTourSkipped() {
+    return this.get<string>(AppConstant.KEY_APP_TOUR);
   }
 
   get<T>(key: string): Promise<T> {

@@ -9,7 +9,12 @@ const routes: Routes = [
   {
     path: 'language',
     loadChildren: () => import('./modules/language/language.module').then( m => m.LanguagePageModule)
+  },
+  {
+    path: 'app-tour',
+    loadChildren: () => import('./modules/app-tour/app-tour.module').then( m => m.AppTourPageModule)
   }
+
 ];
 @NgModule({
   imports: [
