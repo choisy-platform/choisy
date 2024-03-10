@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>language</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="language-buttons">
+    <ion-button
+      (click)="toggleLanguage('english')"
+      expand="full"
+      color="primary"
+      >English</ion-button
+    >
+    <ion-button
+      (click)="toggleLanguage('other')"
+      expand="full"
+      color="secondary"
+      >Other</ion-button
+    >
+  </div>
+</ion-content>
