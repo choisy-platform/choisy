@@ -12,10 +12,8 @@ export class TabsPage extends BasePage implements OnInit  {
     super();
   }
   async ngOnInit(){
-    const isTourSkipped = await this.appSettingSvc.getAppTourSkipped();
-    if(!isTourSkipped) {
-      this.router.navigate(['/app-tour'])     
-    }
+
+    ''
   }
 
 }

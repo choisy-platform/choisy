@@ -42,7 +42,7 @@ export class AppSettingService {
     return this.dbService
       .putLocal(this.schemaSvc.tables.setting, {
         key: AppConstant.KEY_APP_TOUR,
-        value: value == true ? 'attended' : 'notAttended',
+        value: value == true ? 'yes' : 'no',
       })
       .then(() => {
         AppSettingService.settingCache.set(
@@ -57,7 +57,7 @@ export class AppSettingService {
       if (typeof value === 'undefined' || value === null) {
         return value;
       }
-      return value == 'attended' || value == true;
+      return value == 'yes' || value == true;
     });
   }
 

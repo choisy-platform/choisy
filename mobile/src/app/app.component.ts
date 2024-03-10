@@ -271,9 +271,11 @@ export class AppComponent {
   }
 
   private async _setDefaults() {
-    const res = await Promise.all([this.appSettingSvc.getWorkingLanguage()]);
+    const res = await Promise.all([this.appSettingSvc.getWorkingLanguage(), this.appSettingSvc.getAppTourSkipped()]);
 
     let wkl = res[0];
+    let appTour = res[1];
+    
     if (!wkl) {
       const wkl = await this._openLanguageModal();
       console.log(wkl);
@@ -285,8 +287,11 @@ export class AppComponent {
         isRtl: false,
       });
     }
-    
-    
+
+    if(!appTour) {
+      this.router.navigate(['/app-tour'])     
+    }
+
     const url = this.router.routerState.snapshot.url;
     const ignoreRoutes = ['privacy', 'feedback'];
     const exists = ignoreRoutes.filter((r) => url.includes(r));
