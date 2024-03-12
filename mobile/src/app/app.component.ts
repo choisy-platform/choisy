@@ -1,12 +1,13 @@
 import { Component, Inject, Renderer2 } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { AppSettingService } from './modules/universal/app-setting.service';
 import { NgxPubSubService } from './modules/universal/pub-sub';
 import { HelperService } from './modules/universal/helper.service';
 import { LocalizationService } from './modules/universal/localization.service';
 import { AppConstant } from './modules/universal/app-constant';
 import { DOCUMENT } from '@angular/common';
+import { LanguagePage } from './modules/language/language.page';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,8 @@ export class AppComponent {
     private helperSvc: HelperService,
     private localizationSvc: LocalizationService,
     @Inject(DOCUMENT) private document: Document,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private modalCtrl: ModalController
   ) {
     this.initializeApp();
   }
@@ -269,38 +271,49 @@ export class AppComponent {
   }
 
   private async _setDefaults() {
-    // const res = await Promise.all([
-    //   this.appSettingSvc.getWorkingLanguage(),
-    //   this._configureWeb(),
-    // ]);
+    const res = await Promise.all([this.appSettingSvc.getWorkingLanguage(), this.appSettingSvc.getAppTourSkipped()]);
 
-    // let wkl = res[0];
-    // if (!wkl) {
-    //   wkl = 'en';
-    //   await this.appSettingSvc.putWorkingLanguage(wkl);
-    // }
+    let wkl = res[0];
+    let appTour = res[1];
+    
+    if (!wkl) {
+      const wkl = await this._openLanguageModal();
+      console.log(wkl);
 
-    // this.pubsubSvc.publishEvent(AppConstant.EVENT_LANGUAGE_CHANGED, {
-    //   wkLangauge: wkl,
-    //   reload: false,
-    //   isRtl: false,
-    // });
+      await this.appSettingSvc.putWorkingLanguage(wkl);
+      this.pubsubSvc.publishEvent(AppConstant.EVENT_LANGUAGE_CHANGED, {
+        wkLangauge: wkl,
+        reload: false,
+        isRtl: false,
+      });
+    }
 
-    // const url = this.router.routerState.snapshot.url;
-    // const ignoreRoutes = ['privacy', 'feedback'];
-    // const exists = ignoreRoutes.filter(r => url.includes(r));
-    // if(exists.length) {
-    //   return;
-    // }
+    if(!appTour) {
+      this.router.navigate(['/app-tour'])     
+    }
+
+    const url = this.router.routerState.snapshot.url;
+    const ignoreRoutes = ['privacy', 'feedback'];
+    const exists = ignoreRoutes.filter((r) => url.includes(r));
+    if (exists.length) {
+      return;
+    }
 
     if (this.existingRouteUrl) {
       await this._navigateTo(this.existingRouteUrl);
       return;
     }
+  }
 
-    await this._navigateTo('/tabs/tab1');
-    // await this._navigateTo('/trip/trip-add');
-    // await this._navigateTo('/trip/trip-add');
+  private async _openLanguageModal() {
+    const modal = await this.modalCtrl.create({
+      component: LanguagePage,
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      return data;
+    }
   }
 
   private async _navigateTo(path, args?, replaceUrl = false) {

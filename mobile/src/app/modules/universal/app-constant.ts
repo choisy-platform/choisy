@@ -27,4 +27,6 @@ export class AppConstant {
   public static readonly EVENT_NAVIGATE_TO = 'event:navigateTo';
 
   public static readonly KEY_WORKING_LANGUAGE = 'key:workingLanguage';
+  public static readonly KEY_APP_TOUR = 'key:appTour';
+
 }

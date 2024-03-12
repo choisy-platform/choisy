@@ -1,12 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { BasePage } from '../modules/universal/base.page';
 
 @Component({
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss']
 })
-export class TabsPage {
+export class TabsPage extends BasePage implements OnInit  {
 
-  constructor() {}
+  constructor() {
+    super();
+  }
+  async ngOnInit(){
+
+    ''
+  }
 
 }
