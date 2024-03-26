@@ -1,5 +1,9 @@
 name: Choisy CI
 
+defaults:
+  run:
+    working-directory: web
+
 on:
   push:
     branches: [ "main" ]
@@ -15,4 +19,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file web/Dockerfile --tag choisy:$(date +%s)
+      run: docker build . --file Dockerfile --tag choisy:$(date +%s)
