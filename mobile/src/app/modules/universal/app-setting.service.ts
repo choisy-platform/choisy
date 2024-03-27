@@ -30,7 +30,7 @@ export class AppSettingService {
     this.schemaSvc = injector.get(SchemaService);
     this.platform = injector.get(Platform);
 
-    if (this.platform.is('cordova')) {
+    if (this.platform.is('capacitor')) {
       this.dbService = injector.get(DbSqlService);
     } else {
       this.dbService = injector.get(DbWebService);
@@ -45,10 +45,7 @@ export class AppSettingService {
         value: value == true ? 'yes' : 'no',
       })
       .then(() => {
-        AppSettingService.settingCache.set(
-          AppConstant.KEY_APP_TOUR,
-          value
-        );
+        AppSettingService.settingCache.set(AppConstant.KEY_APP_TOUR, value);
       });
   }
 
